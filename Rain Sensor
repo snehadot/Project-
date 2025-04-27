@@ -1,0 +1,57 @@
+// Define pin numbers for components
+const int LDR_PIN = A0; // Analog pin for LDR sensor
+const int RAIN_SENSOR_PIN = A1; // Analog pin for rain sensor
+const int LED_PIN = 13; // Analog pin for rain sensor
+//const int MOTOR1_INPUT_1 = 9; // Digital pin for motor 1 control
+//const int MOTOR1_INPUT_2 = 10; // Digital pin for motor 1 control
+//const int MOTOR2_INPUT_3 = 11; // Digital pin for motor 2 control
+//const int MOTOR2_INPUT_4 = 12; // Digital pin for motor 2 control
+
+// Define threshold values for light and rain detection
+const int LIGHT_THRESHOLD = 200; // Adjust this value according to ambient light conditions
+const int RAIN_THRESHOLD = 700; // Adjust this value according to rain sensor sensitivity
+
+void setup() {
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+
+  // Set motor control pins as output
+  /*pinMode(MOTOR1_INPUT_1, OUTPUT);
+  pinMode(MOTOR1_INPUT_2, OUTPUT);
+  pinMode(MOTOR2_INPUT_3, OUTPUT);
+  pinMode(MOTOR2_INPUT_4, OUTPUT);
+  pinMode(MOTOR2_INPUT_4, OUTPUT);*/
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  // Read values from LDR and rain sensor
+  int lightValue = analogRead(LDR_PIN);
+  int rainValue = analogRead(RAIN_SENSOR_PIN);
+
+  // Print sensor values for debugging
+  Serial.print("Light Value: ");
+  Serial.println(lightValue);
+  Serial.print("Rain Value: ");
+  Serial.println(rainValue);
+
+  // Check if it's bright enough and not raining
+  if (lightValue < LIGHT_THRESHOLD||rainValue < RAIN_THRESHOLD ) {
+    // Run motors in forward direction
+    /*digitalWrite(MOTOR1_INPUT_1, HIGH);
+    digitalWrite(MOTOR1_INPUT_2, LOW);
+    digitalWrite(MOTOR2_INPUT_3, HIGH);
+    digitalWrite(MOTOR2_INPUT_4, LOW);*/
+    digitalWrite(LED_PIN, HIGH);
+
+  } else {
+    // Stop motors
+    /*digitalWrite(MOTOR1_INPUT_1, LOW);
+    digitalWrite(MOTOR1_INPUT_2, LOW);
+    digitalWrite(MOTOR2_INPUT_3, LOW);
+    digitalWrite(MOTOR2_INPUT_4, LOW);*/
+    digitalWrite(LED_PIN, LOW);
+  }
+
+  delay(1000); // Adjust delay time as needed
+}
